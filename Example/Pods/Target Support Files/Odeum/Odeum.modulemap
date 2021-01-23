@@ -1,0 +1,6 @@
+framework module Odeum {
+  umbrella header "Odeum-umbrella.h"
+
+  export *
+  module * { export * }
+}

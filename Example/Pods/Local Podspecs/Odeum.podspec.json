@@ -1,0 +1,22 @@
+{
+  "name": "Odeum",
+  "version": "0.1.0",
+  "summary": "A short description of Odeum.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/24823437/Odeum",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "24823437": "nayanda1@outlook.com"
+  },
+  "source": {
+    "git": "https://github.com/24823437/Odeum.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "9.0"
+  },
+  "source_files": "Odeum/Classes/**/*"
+}
