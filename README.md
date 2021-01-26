@@ -2,7 +2,8 @@
 
 Odeum is a simple iOS Video player library with basic control
 
-[![CI Status](https://img.shields.io/travis/24823437/Odeum.svg?style=flat)](https://travis-ci.org/24823437/Odeum)
+![build](https://github.com/nayanda1/Odeum/workflows/build/badge.svg)
+![test](https://github.com/nayanda1/Odeum/workflows/test/badge.svg)
 [![Version](https://img.shields.io/cocoapods/v/Odeum.svg?style=flat)](https://cocoapods.org/pods/Odeum)
 [![License](https://img.shields.io/cocoapods/l/Odeum.svg?style=flat)](https://cocoapods.org/pods/Odeum)
 [![Platform](https://img.shields.io/cocoapods/p/Odeum.svg?style=flat)](https://cocoapods.org/pods/Odeum)
