@@ -40,7 +40,7 @@ public class OdeumPlayerView: UIView {
         control.delegate = self
         return control
     }()
-    public internal(set) lazy var spinner: UIActivityIndicatorView = .init(activityIndicatorStyle: .white)
+    public internal(set) lazy var spinner: UIActivityIndicatorView = .init(style: .white)
     lazy var tapGestureRecognizer: UITapGestureRecognizer = {
         let gesture = UITapGestureRecognizer(target: self, action: #selector(didTap(_:)))
         gesture.cancelsTouchesInView = false
@@ -110,7 +110,7 @@ public class OdeumPlayerView: UIView {
     public var videoControlShownDuration: TimeInterval = 3
     
     // MARK: Properties
-    var previousTimeStatus: AVPlayerTimeControlStatus?
+    var previousTimeStatus: AVPlayer.TimeControlStatus?
     var hideWorker: DispatchWorkItem?
     weak var fullScreenViewController: UIViewController?
     var justSlided: Bool = false
