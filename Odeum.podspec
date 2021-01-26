@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = 'Odeum'
   s.version          = '1.0.0'
-  s.summary          = 'A short description of Odeum.'
+  s.summary          = 'Odeum is a simple iOS Video player library with basic control'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -18,14 +18,14 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+  Odeum is a simple iOS Video player library with basic control written in Swift
                        DESC
 
-  s.homepage         = 'https://github.com/24823437/Odeum'
+  s.homepage         = 'https://github.com/nayanda1/Odeum'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'nayanda' => 'nayanda1@outlook.com' }
-  s.source           = { :git => 'https://github.com/24823437/Odeum.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/nayanda1/Odeum.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '10.0'
