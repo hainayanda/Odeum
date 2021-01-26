@@ -103,38 +103,45 @@ All the methods are optionals
 If user tap the video player, it will show `PlayerControlView` which will control how the video will be played in `OdeumPlayerView`. You could also change the icon of the `PlayerControlView`:
 
 ```swift
-odeumPlayer.set(icon: myIcon, for: ReplayStep.tenSecond)
+odeumPlayer.playerControl.set(icon: myIcon, for: ReplayStep.fiveSecond)
 ```
 
 the states are:
 
 ```swift
-public enum PlayState: String, StatedIcon {
-    case played = "ic_pause"
-    case paused = "ic_play"
+public enum PlayState {
+    case played
+    case paused
 }
 
-public enum AudioState: String, StatedIcon {
-    case mute = "ic_mute"
-    case unmute = "ic_umute"
+public enum AudioState {
+    case mute
+    case unmute
 }
 
-public enum ReplayStep: String, StatedIcon {
-    case fiveSecond = "ic_5_replay"
-    case tenSecond = "ic_10_replay"
-    case thirtySecond = "ic_30_replay"
+public enum ReplayStep {
+    case fiveSecond
+    case tenSecond
+    case thirtySecond
 }
 
-public enum ForwardStep: String, StatedIcon {
-    case fiveSecond = "ic_5_forward"
-    case tenSecond = "ic_10_forward"
-    case thirtySecond = "ic_30_forward"
+public enum ForwardStep {
+    case fiveSecond
+    case tenSecond
+    case thirtySecond
 }
 
-public enum FullScreenState: String, StatedIcon {
-    case fullScreen = "ic_minimize"
-    case minimize = "ic_fullscreen"
+public enum FullScreenState {
+    case fullScreen
+    case minimize
 }
+```
+
+To change the replay step and audio state time interval, you could assign it directly on `playerControl`:
+
+```swift
+odeumPlayer.playerControl.forwardStep = .thirtySecond
+odeumPlayer.playerControl.replayStep = .thirtySecond
 ```
 
 ### Contribute
