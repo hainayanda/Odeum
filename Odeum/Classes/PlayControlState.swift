@@ -7,11 +7,11 @@
 
 import Foundation
 
-public protocol StatedIcon {
+protocol StatedIcon {
     var icon: UIImage { get }
 }
 
-public extension RawRepresentable where RawValue == String, Self: StatedIcon {
+extension RawRepresentable where RawValue == String, Self: StatedIcon {
     
     var icon: UIImage {
         let bundle = Bundle(identifier: "org.cocoapods.Odeum")

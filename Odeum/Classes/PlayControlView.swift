@@ -73,29 +73,33 @@ public class PlayControlView: UIView {
     
     public var audioState: AudioState = .unmute {
         didSet {
-            audioButton.setImage(audioState.icon, for: .normal)
+            audioButton.setImage(icon(for: audioState), for: .normal)
         }
     }
     public var replayStep: ReplayStep = .fiveSecond {
         didSet {
-            replayButton.setImage(replayStep.icon, for: .normal)
+            replayButton.setImage(icon(for: replayStep), for: .normal)
         }
     }
-    public var playState: PlayState = .played{
+    public var playState: PlayState = .played {
         didSet {
-            playButton.setImage(playState.icon, for: .normal)
+            playButton.setImage(icon(for: playState), for: .normal)
         }
     }
     public var forwardStep: ForwardStep = .fiveSecond {
         didSet {
-            forwardButton.setImage(forwardStep.icon, for: .normal)
+            forwardButton.setImage(icon(for: forwardStep), for: .normal)
         }
     }
     public var fullScreenState: FullScreenState = .minimize {
         didSet {
-            fullScreenButton.setImage(fullScreenState.icon, for: .normal)
+            fullScreenButton.setImage(icon(for: fullScreenState), for: .normal)
         }
     }
+    
+    // MARK: Icons
+    
+    var customIcons: [AnyHashable: UIImage] = [:]
     
     // MARK: Delegate
     
@@ -154,6 +158,48 @@ public class PlayControlView: UIView {
         playButton.imageEdgeInsets = playButtonInsets
         forwardButton.imageEdgeInsets = buttonInsets
         fullScreenButton.imageEdgeInsets = buttonInsets
+    }
+    
+    // MARK: Public
+    
+    public func icon(for audioState: AudioState) -> UIImage {
+        customIcons[audioState] ?? audioState.icon
+    }
+    
+    public func icon(for replayState: ReplayStep) -> UIImage {
+        customIcons[replayState] ?? replayState.icon
+    }
+    
+    public func icon(for playState: PlayState) -> UIImage {
+        customIcons[playState] ?? playState.icon
+    }
+    
+    public func icon(for forwardState: ForwardStep) -> UIImage {
+        customIcons[forwardState] ?? forwardState.icon
+    }
+    
+    public func icon(for fullScreenState: FullScreenState) -> UIImage {
+        customIcons[fullScreenState] ?? fullScreenState.icon
+    }
+    
+    public func set(icon: UIImage, for audioState: AudioState) {
+        customIcons[audioState] = icon
+    }
+    
+    public func set(icon: UIImage, for replayState: ReplayStep) {
+        customIcons[replayState] = icon
+    }
+    
+    public func set(icon: UIImage, for playState: PlayState) {
+        customIcons[playState] = icon
+    }
+    
+    public func set(icon: UIImage, for forwardState: ForwardStep) {
+        customIcons[forwardState] = icon
+    }
+    
+    public func set(icon: UIImage, for fullScreenState: FullScreenState) {
+        customIcons[fullScreenState] = icon
     }
     
     // MARK: Delegate

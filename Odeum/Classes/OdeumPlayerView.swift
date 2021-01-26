@@ -105,9 +105,11 @@ public class OdeumPlayerView: UIView {
         return layer
     }()
     
-    // MARK: Properties
-    
+    // MARK: Inspectable Properties
+    @IBInspectable
     public var videoControlShownDuration: TimeInterval = 3
+    
+    // MARK: Properties
     var previousTimeStatus: AVPlayerTimeControlStatus?
     var hideWorker: DispatchWorkItem?
     weak var fullScreenViewController: UIViewController?
