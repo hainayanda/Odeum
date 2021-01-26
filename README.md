@@ -5,7 +5,7 @@
 [![License](https://img.shields.io/cocoapods/l/Odeum.svg?style=flat)](https://cocoapods.org/pods/Odeum)
 [![Platform](https://img.shields.io/cocoapods/p/Odeum.svg?style=flat)](https://cocoapods.org/pods/Odeum)
 
-<img width="640" height="355" src="ScreenShot.png"/>
+<img width="80%" display="block" margin-left="auto" margin-right="auto" src="ScreenShot.png"/>
 
 ## Example
 
