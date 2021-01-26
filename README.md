@@ -49,7 +49,11 @@ view.addSubview(odeumPlayer)
 ```
 Is up to you how you want it to framed, using `NSLayoutConstraints` or by manually framing it.
 
-You could also add it using storyboard, xib.
+You could also add it using storyboard or XIB. Just use `UIView` and set its `CustomClass` to be `OdeumPlayerView`.
+
+<p align="center">
+<img src="CustomView.png"/>
+<p align="center">
 
 To play the player, just add url:
 
