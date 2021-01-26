@@ -5,8 +5,10 @@
 [![License](https://img.shields.io/cocoapods/l/Odeum.svg?style=flat)](https://cocoapods.org/pods/Odeum)
 [![Platform](https://img.shields.io/cocoapods/p/Odeum.svg?style=flat)](https://cocoapods.org/pods/Odeum)
 
-<img width="80%" display="block" margin-left="auto" margin-right="auto" src="ScreenShot.png"/>
-
+<p align="center">
+<img src="ScreenShot.png"/>
+<p align="center">
+  
 ## Example
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
