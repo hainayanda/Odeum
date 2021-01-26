@@ -5,11 +5,16 @@
 [![License](https://img.shields.io/cocoapods/l/Odeum.svg?style=flat)](https://cocoapods.org/pods/Odeum)
 [![Platform](https://img.shields.io/cocoapods/p/Odeum.svg?style=flat)](https://cocoapods.org/pods/Odeum)
 
+<img width="640" height="355" src="ScreenShot.png"/>
+
 ## Example
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
 ## Requirements
+
+- Swift 5.0 or higher
+- iOS 10.0 or higher
 
 ## Installation
 
@@ -22,7 +27,7 @@ pod 'Odeum'
 
 ## Author
 
-24823437, nayanda1@outlook.com
+Nayanda Haberty, nayanda1@outlook.com
 
 ## License
 

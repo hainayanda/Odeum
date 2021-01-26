@@ -18,7 +18,7 @@ class ViewController: UIViewController {
         odeumPlayer.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(odeumPlayer)
         NSLayoutConstraint.activate([
-            odeumPlayer.topAnchor.constraint(equalTo: view.topAnchor),
+            odeumPlayer.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             odeumPlayer.leftAnchor.constraint(equalTo: view.leftAnchor),
             odeumPlayer.rightAnchor.constraint(equalTo: view.rightAnchor),
             odeumPlayer.heightAnchor.constraint(equalTo: odeumPlayer.widthAnchor, multiplier: 9/16)
