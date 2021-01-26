@@ -19,9 +19,5 @@
     "ios": "10.0"
   },
   "source_files": "Odeum/Classes/**/*",
-  "resource_bundles": {
-    "Odeum": [
-      "Odeum/Assets/*.xcassets"
-    ]
-  }
+  "resources": "Odeum/Assets/**"
 }

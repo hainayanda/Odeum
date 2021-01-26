@@ -10,58 +10,48 @@ import UIKit
 import AVFoundation
 import AVKit
 
-// MARK: Delegate
-
-public protocol OdeumPlayerViewDelegate: class {
-    func odeumDidPlayVideo(_ player: OdeumPlayerView)
-    func odeumDidPauseVideo(_ player: OdeumPlayerView)
-    func odeumDidGoToFullScreen(_ player: OdeumPlayerView)
-    func odeumDidDismissFullScreen(_ player: OdeumPlayerView)
-    func odeumDidMuted(_ player: OdeumPlayerView)
-    func odeumDidUnmuted(_ player: OdeumPlayerView)
-    func odeum(_ player: OdeumPlayerView, forwardedBy interval: TimeInterval)
-    func odeum(_ player: OdeumPlayerView, rewindedBy interval: TimeInterval)
-    func odeumDidBuffering(_ player: OdeumPlayerView)
-    func odeumDidFinishedBuffering(_ player: OdeumPlayerView)
-    func odeum(_ player: OdeumPlayerView, progressingBy percent: Double)
-}
-
-public extension OdeumPlayerViewDelegate {
-    func odeumDidPlayVideo(_ player: OdeumPlayerView) { }
-    func odeumDidPauseVideo(_ player: OdeumPlayerView) { }
-    func odeumDidGoToFullScreen(_ player: OdeumPlayerView) { }
-    func odeumDidDismissFullScreen(_ player: OdeumPlayerView) { }
-    func odeumDidMuted(_ player: OdeumPlayerView) { }
-    func odeumDidUnmuted(_ player: OdeumPlayerView) { }
-    func odeum(_ player: OdeumPlayerView, forwardedBy interval: TimeInterval) { }
-    func odeum(_ player: OdeumPlayerView, rewindedBy interval: TimeInterval) { }
-    func odeumDidBuffering(_ player: OdeumPlayerView) { }
-    func odeumDidFinishedBuffering(_ player: OdeumPlayerView) { }
-    func odeum(_ player: OdeumPlayerView, progressingBy percent: Double) { }
-}
-
 // MARK: OdeumPlayerView
 
 public class OdeumPlayerView: UIView {
+    
     // MARK: View
     
-    public internal(set) lazy var progressBar: UIProgressView = {
-        let bar = UIProgressView(progressViewStyle: .bar)
-        bar.progressTintColor = .red
-        bar.trackTintColor = UIColor.white.withAlphaComponent(0.5)
+    public internal(set) lazy var progressBar: UISlider = {
+        let bar = UISlider()
+        bar.thumbTintColor = .white
+        bar.minimumTrackTintColor = .red
+        bar.maximumTrackTintColor = UIColor.white.withAlphaComponent(0.5)
+        bar.maximumValue = 1
+        bar.minimumValue = 0
+        bar.setThumbImage(makeCircle(), for: .normal)
+        bar.setThumbImage(makeCircle(withSize: .init(width: 16, height: 16)), for: .highlighted)
+        bar.addTarget(self, action: #selector(slided(_:)), for: .valueChanged)
+        bar.addTarget(self, action: #selector(didSlide(_:)), for: .touchUpInside)
+        bar.addTarget(self, action: #selector(didSlide(_:)), for: .touchUpOutside)
         return bar
     }()
-    public internal(set) lazy var videoViewHolder: UIView = .init()
-    // 256 * 64 or 4 : 1
-    public internal(set) lazy var playerControl: PlayControlView = .init()
-    public internal(set) lazy var spinner: UIActivityIndicatorView = .init(activityIndicatorStyle: .whiteLarge)
+    public internal(set) lazy var videoViewHolder: UIView = {
+        let view = UIView()
+        view.addGestureRecognizer(tapGestureRecognizer)
+        return view
+    }()
+    public internal(set) lazy var playerControl: PlayControlView = {
+        let control = PlayControlView()
+        control.delegate = self
+        return control
+    }()
+    public internal(set) lazy var spinner: UIActivityIndicatorView = .init(activityIndicatorStyle: .white)
     lazy var tapGestureRecognizer: UITapGestureRecognizer = {
         let gesture = UITapGestureRecognizer(target: self, action: #selector(didTap(_:)))
         gesture.cancelsTouchesInView = false
-        videoViewHolder.addGestureRecognizer(gesture)
         return gesture
     }()
+    
     // MARK: State
+    public var videoIsFinished: Bool {
+        guard let duration = player.currentItem?.duration else { return false }
+        return player.currentTime() >= duration
+    }
     public var isBuffering: Bool {
         spinner.alpha < 1
     }
@@ -88,6 +78,9 @@ public class OdeumPlayerView: UIView {
     public var fullScreenState: FullScreenState {
         playerControl.fullScreenState
     }
+    public var videoItem: AVPlayerItem? {
+        player.currentItem
+    }
     
     // MARK: Delegate
     
@@ -103,10 +96,7 @@ public class OdeumPlayerView: UIView {
             self?.timeTracked(time)
         }
         player.actionAtItemEnd = .pause
-        observationToken = player.observe(\.timeControlStatus, options: [.old, .new]) { [weak self] player, changes in
-            guard changes.newValue != changes.oldValue else { return }
-            self?.timeControl(changes.newValue, changeFrom: changes.oldValue)
-        }
+        player.addObserver(self, forKeyPath: "timeControlStatus", options: [.old, .new], context: nil)
         return player
     }()
     lazy var playerLayer: AVPlayerLayer = {
@@ -118,14 +108,16 @@ public class OdeumPlayerView: UIView {
     // MARK: Properties
     
     public var videoControlShownDuration: TimeInterval = 3
-    
-    var observationToken: NSObjectProtocol?
+    var previousTimeStatus: AVPlayerTimeControlStatus?
     var hideWorker: DispatchWorkItem?
+    weak var fullScreenViewController: UIViewController?
+    var justSlided: Bool = false
     
     // MARK: Initializer
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
+        backgroundColor = .black
         setupConstraints()
     }
     
@@ -137,20 +129,75 @@ public class OdeumPlayerView: UIView {
         super.layoutSubviews()
         playerLayer.frame = videoViewHolder.bounds
         videoViewHolder.layer.addSublayer(playerLayer)
+        playerControl.layer.cornerRadius = playerControl.bounds.height / 2
+        playerControl.clipsToBounds = true
     }
     
     // MARK: View Arrangement and Animating
     
     func setupConstraints() {
-        
+        videoViewHolder.translatesAutoresizingMaskIntoConstraints = false
+        playerControl.translatesAutoresizingMaskIntoConstraints = false
+        progressBar.translatesAutoresizingMaskIntoConstraints = false
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        playerControl.alpha = 0
+        progressBar.alpha = 0
+        spinner.alpha = 0
+        addSubview(videoViewHolder)
+        addSubview(spinner)
+        addSubview(progressBar)
+        addSubview(playerControl)
+        NSLayoutConstraint.activate([
+            videoViewHolder.topAnchor.constraint(equalTo: topAnchor),
+            videoViewHolder.leftAnchor.constraint(equalTo: leftAnchor),
+            videoViewHolder.bottomAnchor.constraint(equalTo: bottomAnchor),
+            videoViewHolder.rightAnchor.constraint(equalTo: rightAnchor),
+            playerControl.centerYAnchor.constraint(equalTo: centerYAnchor),
+            playerControl.centerXAnchor.constraint(equalTo: centerXAnchor),
+            playerControl.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: 16),
+            playerControl.leftAnchor.constraint(greaterThanOrEqualTo: leftAnchor, constant: 16),
+            playerControl.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -16),
+            playerControl.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -16),
+            playerControl.heightAnchor.constraint(lessThanOrEqualToConstant: 48),
+            playerControl.widthAnchor.constraint(lessThanOrEqualToConstant: 240),
+            playerControl.widthAnchor.constraint(equalTo: playerControl.heightAnchor, multiplier: 5),
+            progressBar.leftAnchor.constraint(equalTo: leftAnchor, constant: 8),
+            progressBar.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
+            progressBar.rightAnchor.constraint(equalTo: rightAnchor, constant: -8),
+            spinner.centerYAnchor.constraint(equalTo: centerYAnchor),
+            spinner.centerXAnchor.constraint(equalTo: centerXAnchor),
+            spinner.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: 16),
+            spinner.leftAnchor.constraint(greaterThanOrEqualTo: leftAnchor, constant: 16),
+            spinner.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -16),
+            spinner.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -16),
+        ])
     }
     
     func showSpinner() {
-        
+        self.spinner.startAnimating()
+        UIView.animate(
+            withDuration: 0.2,
+            delay: 0,
+            options: .curveEaseInOut,
+            animations: {
+                self.spinner.alpha = 1
+            },
+            completion: nil
+        )
     }
     
     func hideSpinner() {
-        
+        UIView.animate(
+            withDuration: 0.2,
+            delay: 0,
+            options: .curveEaseInOut,
+            animations: {
+                self.spinner.alpha = 0
+            },
+            completion: { _ in
+                self.spinner.stopAnimating()
+            }
+        )
     }
     
     func showControl() {
@@ -177,39 +224,6 @@ public class OdeumPlayerView: UIView {
             },
             completion: nil
         )
-    }
-    
-    // MARK: Actions
-    
-    @objc func didTap(_ sender: UITapGestureRecognizer) {
-        showControl()
-        hideWorker?.cancel()
-        let newWorker = DispatchWorkItem { [weak self] in
-            self?.hideControl()
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + videoControlShownDuration, execute: newWorker)
-    }
-    
-    func timeTracked(_ time: CMTime) {
-        guard let duration = player.currentItem?.duration else { return }
-        let progress = min(max(time.seconds / duration.seconds, 0), 1)
-        progressBar.progress = Float(progress)
-        delegate?.odeum(self, progressingBy: progress)
-    }
-    
-    func timeControl(_ status: AVPlayerTimeControlStatus?, changeFrom previousStatus: AVPlayerTimeControlStatus?) {
-        if status == .waitingToPlayAtSpecifiedRate {
-            showSpinner()
-            delegate?.odeumDidBuffering(self)
-        } else if status == .playing {
-            if previousStatus == .waitingToPlayAtSpecifiedRate {
-                hideSpinner()
-                delegate?.odeumDidFinishedBuffering(self)
-            }
-            delegate?.odeumDidPlayVideo(self)
-        } else {
-            delegate?.odeumDidPauseVideo(self)
-        }
     }
 
 }

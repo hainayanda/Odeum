@@ -14,7 +14,7 @@ public protocol StatedIcon {
 public extension RawRepresentable where RawValue == String, Self: StatedIcon {
     
     var icon: UIImage {
-        let bundle = Bundle(for: PlayControlView.self)
+        let bundle = Bundle(identifier: "org.cocoapods.Odeum")
         return UIImage(named: rawValue, in: bundle, compatibleWith: nil)!
     }
 }
@@ -25,8 +25,8 @@ public enum PlayState: String, StatedIcon {
 }
 
 public enum AudioState: String, StatedIcon {
-    case mute = "ic_umute"
-    case unmute = "ic_mute"
+    case mute = "ic_mute"
+    case unmute = "ic_umute"
 }
 
 public enum ReplayStep: String, StatedIcon {

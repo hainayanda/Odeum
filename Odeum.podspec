@@ -31,10 +31,10 @@ TODO: Add long description of the pod here.
   s.ios.deployment_target = '10.0'
 
   s.source_files = 'Odeum/Classes/**/*'
-  
-   s.resource_bundles = {
-     'Odeum' => ['Odeum/Assets/*.xcassets']
-   }
+  s.resources = 'Odeum/Assets/**'
+#   s.resource_bundles = {
+#     'Odeum' => ['Odeum/Assets/*']
+#   }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'

@@ -7,18 +7,28 @@
 //
 
 import UIKit
+import Odeum
 
 class ViewController: UIViewController {
 
+    var odeumPlayer: OdeumPlayerView = .init()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        odeumPlayer.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(odeumPlayer)
+        NSLayoutConstraint.activate([
+            odeumPlayer.topAnchor.constraint(equalTo: view.topAnchor),
+            odeumPlayer.leftAnchor.constraint(equalTo: view.leftAnchor),
+            odeumPlayer.rightAnchor.constraint(equalTo: view.rightAnchor),
+            odeumPlayer.heightAnchor.constraint(equalTo: odeumPlayer.widthAnchor, multiplier: 0.5)
+        ])
+        let url = URL(string: "https://www.radiantmediaplayer.com/media/big-buck-bunny-360p.mp4")!
+        odeumPlayer.play(url: url)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
 }
-

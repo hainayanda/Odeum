@@ -40,19 +40,34 @@ public class PlayControlView: UIView {
                 fullScreenButton
             ]
         )
-        stack.alignment = .center
+        stack.alignment = .fill
         stack.axis = .horizontal
         stack.distribution = .fillEqually
         stack.spacing = 0
-        stack.layoutMargins = .init(top: 8, left: 8, bottom: 8, right: 8)
+        stack.layoutMargins = .zero
         stack.isLayoutMarginsRelativeArrangement = true
         return stack
     }()
-    public private(set) lazy var audioButton: UIButton = createButton(with: audioState.icon, selector: #selector(didTapAudio(_:)))
-    public private(set) lazy var replayButton: UIButton = createButton(with: replayStep.icon, selector: #selector(didTapReplay(_:)))
-    public private(set) lazy var playButton: UIButton = createButton(with: playState.icon, imageEdgeInsets: .zero, selector: #selector(didTapPlay(_:)))
-    public private(set) lazy var forwardButton: UIButton = createButton(with: forwardStep.icon, selector: #selector(didTapForward(_:)))
-    public private(set) lazy var fullScreenButton: UIButton = createButton(with: fullScreenState.icon, selector: #selector(didTapFullScreen(_:)))
+    public private(set) lazy var audioButton: UIButton = createButton(
+        with: audioState.icon,
+        selector: #selector(didTapAudio(_:))
+    )
+    public private(set) lazy var replayButton: UIButton = createButton(
+        with: replayStep.icon,
+        selector: #selector(didTapReplay(_:))
+    )
+    public private(set) lazy var playButton: UIButton = createButton(
+        with: playState.icon,
+        selector: #selector(didTapPlay(_:))
+    )
+    public private(set) lazy var forwardButton: UIButton = createButton(
+        with: forwardStep.icon,
+        selector: #selector(didTapForward(_:))
+    )
+    public private(set) lazy var fullScreenButton: UIButton = createButton(
+        with: fullScreenState.icon,
+        selector: #selector(didTapFullScreen(_:))
+    )
     
     // MARK: State
     
@@ -61,7 +76,7 @@ public class PlayControlView: UIView {
             audioButton.setImage(audioState.icon, for: .normal)
         }
     }
-    public var replayStep: ReplayStep = .fiveSecond{
+    public var replayStep: ReplayStep = .fiveSecond {
         didSet {
             replayButton.setImage(replayStep.icon, for: .normal)
         }
@@ -71,12 +86,12 @@ public class PlayControlView: UIView {
             playButton.setImage(playState.icon, for: .normal)
         }
     }
-    public var forwardStep: ForwardStep = .fiveSecond{
+    public var forwardStep: ForwardStep = .fiveSecond {
         didSet {
             forwardButton.setImage(forwardStep.icon, for: .normal)
         }
     }
-    public var fullScreenState: FullScreenState = .fullScreen{
+    public var fullScreenState: FullScreenState = .minimize {
         didSet {
             fullScreenButton.setImage(fullScreenState.icon, for: .normal)
         }
@@ -113,19 +128,32 @@ public class PlayControlView: UIView {
             buttonStack.topAnchor.constraint(equalTo: topAnchor),
             buttonStack.rightAnchor.constraint(equalTo: rightAnchor),
             buttonStack.bottomAnchor.constraint(equalTo: bottomAnchor),
+            buttonStack.widthAnchor.constraint(equalTo: buttonStack.heightAnchor, multiplier: 5)
         ])
     }
     
     func createButton(
         with icon: UIImage,
-        imageEdgeInsets: UIEdgeInsets = .init(top: 16, left: 16, bottom: 16, right: 16),
         selector: Selector) -> UIButton {
         let button = UIButton()
         button.backgroundColor = .clear
         button.setImage(icon, for: .normal)
-        button.imageEdgeInsets = imageEdgeInsets
+        button.imageView?.contentMode = .scaleAspectFit
         button.addTarget(self, action: selector, for: .touchUpInside)
         return button
+    }
+    
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        let insets = bounds.height / 3
+        let playInsets = insets / 3
+        let buttonInsets: UIEdgeInsets = .init(top: insets, left: insets, bottom: insets, right: insets)
+        let playButtonInsets: UIEdgeInsets = .init(top: playInsets, left: playInsets, bottom: playInsets, right: playInsets)
+        audioButton.imageEdgeInsets = buttonInsets
+        replayButton.imageEdgeInsets = buttonInsets
+        playButton.imageEdgeInsets = playButtonInsets
+        forwardButton.imageEdgeInsets = buttonInsets
+        fullScreenButton.imageEdgeInsets = buttonInsets
     }
     
     // MARK: Delegate
