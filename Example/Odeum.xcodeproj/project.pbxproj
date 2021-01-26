@@ -13,8 +13,8 @@
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
-		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
 		B0454CB44E6F60E3BE278B05 /* Pods_Odeum_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06EEA377EF80846C5BFD70B1 /* Pods_Odeum_Tests.framework */; };
+		BB0ED60725BFD05C00E49B26 /* PlayControlSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0ED60625BFD05C00E49B26 /* PlayControlSpec.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,10 +40,10 @@
 		607FACDF1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		607FACE51AFB9204008FA782 /* Odeum_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Odeum_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		68857B4B6A9D1ABC9B6A5EC3 /* Pods-Odeum_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Odeum_Tests.debug.xcconfig"; path = "Target Support Files/Pods-Odeum_Tests/Pods-Odeum_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		9CB29E1411888A7EA302F75A /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		A7ABFB9514BEDE95EB33981B /* Pods-Odeum_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Odeum_Example.debug.xcconfig"; path = "Target Support Files/Pods-Odeum_Example/Pods-Odeum_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		BB0ED60625BFD05C00E49B26 /* PlayControlSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayControlSpec.swift; sourceTree = "<group>"; };
 		C2B0CDBC585FB3754058E991 /* Odeum.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Odeum.podspec; path = ../Odeum.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		E605CD1A8ED6E9E9644878D9 /* Pods-Odeum_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Odeum_Tests.release.xcconfig"; path = "Target Support Files/Pods-Odeum_Tests/Pods-Odeum_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		E715CACB2B9A767955203EBB /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
@@ -115,8 +115,8 @@
 		607FACE81AFB9204008FA782 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				607FACEB1AFB9204008FA782 /* Tests.swift */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
+				BB0ED60625BFD05C00E49B26 /* PlayControlSpec.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -361,7 +361,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				607FACEC1AFB9204008FA782 /* Tests.swift in Sources */,
+				BB0ED60725BFD05C00E49B26 /* PlayControlSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
