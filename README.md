@@ -72,6 +72,7 @@ there are methods to manipulate video playing in odeum:
 - `func replay(by second: TimeInterval) -> Bool` to rewind a video by given `TimeInterval`
 - `func goFullScreen()` to go to full screen
 - `func dismissFullScreen()` to dismiss full screen
+- `func removeVideo()` to stop and remove video from video player
 
 All those function will run automatically on the player control hover buttons
 
