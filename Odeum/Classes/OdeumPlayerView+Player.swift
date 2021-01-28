@@ -15,6 +15,7 @@ extension OdeumPlayerView {
         let asset = AVAsset(url: url)
         let item = AVPlayerItem(asset: asset)
         player.replaceCurrentItem(with: item)
+        self.url = url
     }
     
     public func play() {
@@ -89,6 +90,12 @@ extension OdeumPlayerView {
             guard let self = self else { return }
             self.delegate?.odeumDidDismissFullScreen(self)
         }
+    }
+    
+    public func removeVideo() {
+        pause()
+        player.replaceCurrentItem(with: nil)
+        self.url = nil
     }
 }
 

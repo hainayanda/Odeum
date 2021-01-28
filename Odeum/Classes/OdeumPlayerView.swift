@@ -110,6 +110,7 @@ public class OdeumPlayerView: UIView {
     public var videoControlShownDuration: TimeInterval = 3
     
     // MARK: Properties
+    public internal(set) var url: URL?
     var previousTimeStatus: AVPlayer.TimeControlStatus?
     var hideWorker: DispatchWorkItem?
     weak var fullScreenViewController: UIViewController?
@@ -125,6 +126,10 @@ public class OdeumPlayerView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        player.removeObserver(self, forKeyPath: "timeControlStatus", context: nil)
     }
     
     public override func layoutSubviews() {
