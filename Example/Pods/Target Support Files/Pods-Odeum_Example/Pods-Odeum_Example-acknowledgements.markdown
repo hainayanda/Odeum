@@ -3,7 +3,7 @@ This application makes use of the following third party libraries:
 
 ## Odeum
 
-Copyright (c) 2021 24823437 <nayanda1@outlook.com>
+Copyright (c) 2021 Nayanda Haberty <nayanda1@outlook.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
