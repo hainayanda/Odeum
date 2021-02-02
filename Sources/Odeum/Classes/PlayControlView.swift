@@ -6,6 +6,7 @@
 //
 
 import Foundation
+#if canImport(UIKit)
 import UIKit
 
 // MARK: Delegate
@@ -227,3 +228,4 @@ public class PlayControlView: UIView {
         delegate?.playControl(self, fullScreenDidChangeStateTo: fullScreenState)
     }
 }
+#endif

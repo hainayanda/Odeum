@@ -7,6 +7,7 @@
 
 import Foundation
 
+#if canImport(UIKit)
 protocol StatedIcon {
     var icon: UIImage { get }
 }
@@ -67,3 +68,4 @@ public enum FullScreenState: String, StatedIcon {
     case fullScreen = "ic_minimize"
     case minimize = "ic_fullscreen"
 }
+#endif

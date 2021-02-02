@@ -7,6 +7,7 @@
 
 import Foundation
 
+#if canImport(UIKit)
 extension UIResponder {
     var viewController: UIViewController? {
         let responder = next
@@ -31,3 +32,4 @@ func makeCircle(withSize size: CGSize = .init(width: 8, height: 8)) -> UIImage? 
     let image = UIGraphicsGetImageFromCurrentImageContext()
     return image
 }
+#endif
