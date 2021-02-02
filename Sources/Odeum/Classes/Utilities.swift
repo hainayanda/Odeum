@@ -6,8 +6,9 @@
 //
 
 import Foundation
-
 #if canImport(UIKit)
+import UIKit
+
 extension UIResponder {
     var viewController: UIViewController? {
         let responder = next
