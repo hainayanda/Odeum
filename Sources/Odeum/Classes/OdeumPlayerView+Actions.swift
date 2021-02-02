@@ -6,6 +6,7 @@
 //
 
 import Foundation
+#if canImport(UIKit)
 import UIKit
 import AVFoundation
 import AVKit
@@ -70,3 +71,4 @@ extension OdeumPlayerView {
         }
     }
 }
+#endif

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+#if canImport(UIKit)
 import AVFoundation
 import AVKit
 
@@ -121,3 +122,4 @@ extension OdeumPlayerView: AVPlayerViewControllerDelegate {
         player.seek(to: controllerPlayer.currentTime())
     }
 }
+#endif

@@ -7,6 +7,7 @@
 
 import Foundation
 
+#if canImport(UIKit)
 public protocol OdeumPlayerViewDelegate: class {
     func odeumDidPlayVideo(_ player: OdeumPlayerView)
     func odeumDidPauseVideo(_ player: OdeumPlayerView)
@@ -41,3 +42,4 @@ public extension OdeumPlayerViewDelegate {
     func odeumDidFinishedBuffering(_ player: OdeumPlayerView) { }
     func odeum(_ player: OdeumPlayerView, progressingBy percent: Double) { }
 }
+#endif

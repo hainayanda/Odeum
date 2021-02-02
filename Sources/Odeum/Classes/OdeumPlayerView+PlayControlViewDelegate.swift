@@ -7,6 +7,7 @@
 
 import Foundation
 
+#if canImport(UIKit)
 extension OdeumPlayerView: PlayControlViewDelegate {
     public func playControl(_ view: PlayControlView, audioDidChangeStateTo state: AudioState) {
         didTap(view)
@@ -43,3 +44,4 @@ extension OdeumPlayerView: PlayControlViewDelegate {
         replay(by: step.timeInterval)
     }
 }
+#endif
