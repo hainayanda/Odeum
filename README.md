@@ -36,7 +36,7 @@ Nayanda Haberty, nayanda1@outlook.com
 
 ## License
 
-Odeum is available under the MIT license. See the LICENSE file for more info.
+Odeum is available under the MIT license. See the [LICENSE](LICENSE) file for more info.
 
 ## Usage
 
