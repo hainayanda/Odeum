@@ -31,7 +31,7 @@ extension OdeumPlayerView {
             self?.hideControl()
         }
         hideWorker = newWorker
-        DispatchQueue.main.asyncAfter(deadline: .now() + videoControlShownDuration, execute: newWorker)
+        DispatchQueue.main.asyncAfter(deadline: .now() + videoControlShownTimeInterval, execute: newWorker)
     }
     
     func timeTracked(_ time: CMTime) {
