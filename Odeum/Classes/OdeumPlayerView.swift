@@ -30,8 +30,16 @@ public class OdeumPlayerView: UIView {
         bar.addTarget(self, action: #selector(didSlide(_:)), for: .touchUpOutside)
         return bar
     }()
+    public internal(set) lazy var placeholderView: UIImageView = {
+        let view = UIImageView()
+        view.contentMode = .scaleAspectFill
+        view.backgroundColor = .clear
+        view.clipsToBounds = true
+        return view
+    }()
     public internal(set) lazy var videoViewHolder: UIView = {
         let view = UIView()
+        view.backgroundColor = .clear
         view.addGestureRecognizer(tapGestureRecognizer)
         return view
     }()
@@ -107,7 +115,14 @@ public class OdeumPlayerView: UIView {
     
     // MARK: Inspectable Properties
     @IBInspectable
-    public var videoControlShownDuration: TimeInterval = 3
+    public var videoControlShownDuration: NSNumber = 3
+    
+    @IBInspectable
+    public var placeholderImage: UIImage? = nil {
+        didSet {
+            placeholderView.image = placeholderImage
+        }
+    }
     
     // MARK: Properties
     public internal(set) var url: URL?
@@ -115,6 +130,7 @@ public class OdeumPlayerView: UIView {
     var hideWorker: DispatchWorkItem?
     weak var fullScreenViewController: UIViewController?
     var justSlided: Bool = false
+    var videoControlShownTimeInterval: TimeInterval { .init(truncating: videoControlShownDuration) }
     
     // MARK: Initializer
     
@@ -143,6 +159,7 @@ public class OdeumPlayerView: UIView {
     // MARK: View Arrangement and Animating
     
     func setupConstraints() {
+        placeholderView.translatesAutoresizingMaskIntoConstraints = false
         videoViewHolder.translatesAutoresizingMaskIntoConstraints = false
         playerControl.translatesAutoresizingMaskIntoConstraints = false
         progressBar.translatesAutoresizingMaskIntoConstraints = false
@@ -150,11 +167,16 @@ public class OdeumPlayerView: UIView {
         playerControl.alpha = 0
         progressBar.alpha = 0
         spinner.alpha = 0
+        addSubview(placeholderView)
         addSubview(videoViewHolder)
         addSubview(spinner)
         addSubview(progressBar)
         addSubview(playerControl)
         NSLayoutConstraint.activate([
+            placeholderView.topAnchor.constraint(equalTo: topAnchor),
+            placeholderView.leftAnchor.constraint(equalTo: leftAnchor),
+            placeholderView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            placeholderView.rightAnchor.constraint(equalTo: rightAnchor),
             videoViewHolder.topAnchor.constraint(equalTo: topAnchor),
             videoViewHolder.leftAnchor.constraint(equalTo: leftAnchor),
             videoViewHolder.bottomAnchor.constraint(equalTo: bottomAnchor),
@@ -200,6 +222,7 @@ public class OdeumPlayerView: UIView {
             options: .curveEaseInOut,
             animations: {
                 self.spinner.alpha = 0
+                self.placeholderView.alpha = 0
             },
             completion: { _ in
                 self.spinner.stopAnimating()

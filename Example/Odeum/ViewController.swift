@@ -16,6 +16,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         odeumPlayer.translatesAutoresizingMaskIntoConstraints = false
+        odeumPlayer.placeholderImage = #imageLiteral(resourceName: "placeholder")
         view.addSubview(odeumPlayer)
         NSLayoutConstraint.activate([
             odeumPlayer.centerYAnchor.constraint(equalTo: view.centerYAnchor),
