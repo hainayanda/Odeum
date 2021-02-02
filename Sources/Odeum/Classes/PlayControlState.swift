@@ -6,8 +6,9 @@
 //
 
 import Foundation
-
 #if canImport(UIKit)
+import UIKit
+
 protocol StatedIcon {
     var icon: UIImage { get }
 }

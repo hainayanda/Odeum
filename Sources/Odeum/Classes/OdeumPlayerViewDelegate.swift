@@ -6,8 +6,9 @@
 //
 
 import Foundation
-
 #if canImport(UIKit)
+import UIKit
+
 public protocol OdeumPlayerViewDelegate: class {
     func odeumDidPlayVideo(_ player: OdeumPlayerView)
     func odeumDidPauseVideo(_ player: OdeumPlayerView)
