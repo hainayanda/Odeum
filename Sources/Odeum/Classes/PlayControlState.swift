@@ -16,7 +16,7 @@ protocol StatedIcon {
 extension RawRepresentable where RawValue == String, Self: StatedIcon {
     
     var icon: UIImage {
-        let bundle = Bundle(identifier: "org.cocoapods.Odeum")
+        let bundle = Bundle(for: OdeumPlayerView.self)
         return UIImage(named: rawValue, in: bundle, compatibleWith: nil)!
     }
 }
