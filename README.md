@@ -35,8 +35,8 @@ pod 'Odeum'
 
 ### Swift Package Manager from XCode
 
-- Add it using xcode menu **File > Swift Package > Add Package Dependency**
-- Add **https://github.com/nayanda1/Odeum.git** as Swift Package url
+- Add it using XCode menu **File > Swift Package > Add Package Dependency**
+- Add **https://github.com/nayanda1/Odeum.git** as Swift Package URL
 - Set rules at **version**, with **Up to Next Major** option and put **1.2.0** as its version
 - Click next and wait
 
@@ -77,7 +77,7 @@ Since odeum player is subclass of `UIView`. adding player is same like adding si
 var odeumPlayer = OdeumPlayerView()
 view.addSubview(odeumPlayer)
 ```
-Is up to you how you want it to framed, using `NSLayoutConstraints` or by manually framing it.
+Is up to you how you want it to be framed, using `NSLayoutConstraints` or by manually framing it.
 
 You could also add it using storyboard or XIB. Just use `UIView` and set its `CustomClass` to be `OdeumPlayerView`.
 
@@ -85,7 +85,7 @@ You could also add it using storyboard or XIB. Just use `UIView` and set its `Cu
 <img src="CustomView.png"/>
 <p align="center">
 
-To play the player, just add url:
+To play the player, just add URL:
 
 ```swift
 odeumPlayer.play(url: myURL)
@@ -103,7 +103,7 @@ there are methods to manipulate video playing in odeum:
 - `func dismissFullScreen()` to dismiss full screen
 - `func removeVideo()` to stop and remove video from video player
 
-All those function will run automatically on the player control hover buttons
+All those functions will run automatically on the player control hover buttons
 
 ### Delegate
 
@@ -126,11 +126,11 @@ public protocol OdeumPlayerViewDelegate: class {
 }
 ```
 
-All the methods are optionals
+All the methods are optional
 
 ### PlayerControl
 
-If user tap the video player, it will show `PlayerControlView` which will control how the video will be played in `OdeumPlayerView`. You could also change the icon of the `PlayerControlView`:
+If the user taps the video player, it will show `PlayerControlView` which will control how the video will be played in `OdeumPlayerView`. You could also change the icon of the `PlayerControlView`:
 
 ```swift
 odeumPlayer.playerControl.set(icon: myIcon, for: ReplayStep.fiveSecond)
