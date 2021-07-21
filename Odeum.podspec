@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Odeum'
-  s.version          = '1.2.4'
+  s.version          = '1.2.5'
   s.summary          = 'Odeum is a simple iOS Video player library with basic control'
 
 # This description is used to generate tags and improve search results.
@@ -21,11 +21,11 @@ Pod::Spec.new do |s|
   Odeum is a simple iOS Video player library with basic control written in Swift
                        DESC
 
-  s.homepage         = 'https://github.com/nayanda1/Odeum'
+  s.homepage         = 'https://github.com/hainayanda/Odeum'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'nayanda' => 'nayanda1@outlook.com' }
-  s.source           = { :git => 'https://github.com/nayanda1/Odeum.git', :tag => s.version.to_s }
+  s.author           = { 'nayanda' => 'hainayanda@outlook.com' }
+  s.source           = { :git => 'https://github.com/hainayanda/Odeum.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '10.0'

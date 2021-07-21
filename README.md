@@ -2,8 +2,8 @@
 
 Odeum is a simple iOS Video player library with basic control
 
-![build](https://github.com/nayanda1/Odeum/workflows/build/badge.svg)
-![test](https://github.com/nayanda1/Odeum/workflows/test/badge.svg)
+![build](https://github.com/hainayanda/Odeum/workflows/build/badge.svg)
+![test](https://github.com/hainayanda/Odeum/workflows/test/badge.svg)
 [![SwiftPM Compatible](https://img.shields.io/badge/SwiftPM-Compatible-brightgreen)](https://swift.org/package-manager/)
 [![Version](https://img.shields.io/cocoapods/v/Odeum.svg?style=flat)](https://cocoapods.org/pods/Odeum)
 [![License](https://img.shields.io/cocoapods/l/Odeum.svg?style=flat)](https://cocoapods.org/pods/Odeum)
@@ -36,7 +36,7 @@ pod 'Odeum'
 ### Swift Package Manager from XCode
 
 - Add it using XCode menu **File > Swift Package > Add Package Dependency**
-- Add **https://github.com/nayanda1/Odeum.git** as Swift Package URL
+- Add **https://github.com/hainayanda/Odeum.git** as Swift Package URL
 - Set rules at **version**, with **Up to Next Major** option and put **1.2.0** as its version
 - Click next and wait
 
@@ -46,7 +46,7 @@ Add as your target dependency in **Package.swift**
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/nayanda1/Odeum.git", .upToNextMajor(from: "1.2.0"))
+    .package(url: "https://github.com/hainayanda/Odeum.git", .upToNextMajor(from: "1.2.5"))
 ]
 ```
 
@@ -61,7 +61,7 @@ Use it in your target as `Odeum`
 
 ## Author
 
-Nayanda Haberty, nayanda1@outlook.com
+Nayanda Haberty, hainayanda@outlook.com
 
 ## License
 
