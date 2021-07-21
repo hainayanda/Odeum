@@ -36,7 +36,7 @@ pod 'Odeum'
 ### Swift Package Manager from XCode
 
 - Add it using XCode menu **File > Swift Package > Add Package Dependency**
-- Add **https://github.com/nayanda1/Odeum.git** as Swift Package URL
+- Add **https://github.com/hainayanda/Odeum.git** as Swift Package URL
 - Set rules at **version**, with **Up to Next Major** option and put **1.2.0** as its version
 - Click next and wait
 
@@ -46,7 +46,7 @@ Add as your target dependency in **Package.swift**
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/nayanda1/Odeum.git", .upToNextMajor(from: "1.2.5"))
+    .package(url: "https://github.com/hainayanda/Odeum.git", .upToNextMajor(from: "1.2.5"))
 ]
 ```
 
