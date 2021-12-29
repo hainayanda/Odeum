@@ -138,7 +138,7 @@ public class OdeumPlayerView: UIView {
     public override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .black
-        setupConstraints()
+        buildView()
     }
     
     required init?(coder: NSCoder) {
@@ -159,29 +159,55 @@ public class OdeumPlayerView: UIView {
     
     // MARK: View Arrangement and Animating
     
-    func setupConstraints() {
+    func buildView() {
         placeholderView.translatesAutoresizingMaskIntoConstraints = false
         videoViewHolder.translatesAutoresizingMaskIntoConstraints = false
         playerControl.translatesAutoresizingMaskIntoConstraints = false
         progressBar.translatesAutoresizingMaskIntoConstraints = false
         spinner.translatesAutoresizingMaskIntoConstraints = false
-        playerControl.alpha = 0
-        progressBar.alpha = 0
-        spinner.alpha = 0
+        makeControlTransparent()
+        insertSubviewsInPlace()
+        activatePlaceholderViewConstraints()
+        activateVideoViewHolderConstraints()
+        activatePlayerControlConstraints()
+        activateProgressBarConstraints()
+        activateSpinnerConstraints()
+    }
+    
+    func insertSubviewsInPlace() {
         addSubview(placeholderView)
         addSubview(videoViewHolder)
         addSubview(spinner)
         addSubview(progressBar)
         addSubview(playerControl)
+    }
+    
+    func makeControlTransparent() {
+        playerControl.alpha = 0
+        progressBar.alpha = 0
+        spinner.alpha = 0
+    }
+    
+    func activatePlaceholderViewConstraints() {
         NSLayoutConstraint.activate([
             placeholderView.topAnchor.constraint(equalTo: topAnchor),
             placeholderView.leftAnchor.constraint(equalTo: leftAnchor),
             placeholderView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            placeholderView.rightAnchor.constraint(equalTo: rightAnchor),
+            placeholderView.rightAnchor.constraint(equalTo: rightAnchor)
+        ])
+    }
+    
+    func activateVideoViewHolderConstraints() {
+        NSLayoutConstraint.activate([
             videoViewHolder.topAnchor.constraint(equalTo: topAnchor),
             videoViewHolder.leftAnchor.constraint(equalTo: leftAnchor),
             videoViewHolder.bottomAnchor.constraint(equalTo: bottomAnchor),
-            videoViewHolder.rightAnchor.constraint(equalTo: rightAnchor),
+            videoViewHolder.rightAnchor.constraint(equalTo: rightAnchor)
+        ])
+    }
+    
+    func activatePlayerControlConstraints() {
+        NSLayoutConstraint.activate([
             playerControl.centerYAnchor.constraint(equalTo: centerYAnchor),
             playerControl.centerXAnchor.constraint(equalTo: centerXAnchor),
             playerControl.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: 16),
@@ -190,16 +216,26 @@ public class OdeumPlayerView: UIView {
             playerControl.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -16),
             playerControl.heightAnchor.constraint(lessThanOrEqualToConstant: 48),
             playerControl.widthAnchor.constraint(lessThanOrEqualToConstant: 240),
-            playerControl.widthAnchor.constraint(equalTo: playerControl.heightAnchor, multiplier: 5),
+            playerControl.widthAnchor.constraint(equalTo: playerControl.heightAnchor, multiplier: 5)
+        ])
+    }
+    
+    func activateProgressBarConstraints() {
+        NSLayoutConstraint.activate([
             progressBar.leftAnchor.constraint(equalTo: leftAnchor, constant: 8),
             progressBar.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
-            progressBar.rightAnchor.constraint(equalTo: rightAnchor, constant: -8),
+            progressBar.rightAnchor.constraint(equalTo: rightAnchor, constant: -8)
+        ])
+    }
+    
+    func activateSpinnerConstraints() {
+        NSLayoutConstraint.activate([
             spinner.centerYAnchor.constraint(equalTo: centerYAnchor),
             spinner.centerXAnchor.constraint(equalTo: centerXAnchor),
             spinner.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: 16),
             spinner.leftAnchor.constraint(greaterThanOrEqualTo: leftAnchor, constant: 16),
             spinner.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -16),
-            spinner.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -16),
+            spinner.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -16)
         ])
     }
     

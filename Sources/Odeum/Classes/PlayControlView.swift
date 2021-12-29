@@ -110,14 +110,14 @@ public class PlayControlView: UIView {
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
-        setupConstraints()
+        buildView()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupConstraints() {
+    func buildView() {
         blurEffectView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(blurEffectView)
         NSLayoutConstraint.activate([
