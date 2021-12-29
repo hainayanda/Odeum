@@ -9,7 +9,7 @@ target 'Odeum_Example' do
   target 'Odeum_Tests' do
     inherit! :search_paths
 
-    pod 'Quick', '~> 3.0.0'
-    pod 'Nimble', '~> 9.0.0'
+    pod 'Quick', '~> 4.0.0'
+    pod 'Nimble', '~> 9.2.1'
   end
 end
