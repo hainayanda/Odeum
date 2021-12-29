@@ -36,7 +36,7 @@ pod 'Odeum'
 ### Swift Package Manager from XCode
 
 - Add it using XCode menu **File > Swift Package > Add Package Dependency**
-- Add **https://github.com/hainayanda/Odeum.git** as Swift Package URL
+- Add **<https://github.com/hainayanda/Odeum.git>** as Swift Package URL
 - Set rules at **version**, with **Up to Next Major** option and put **1.2.0** as its version
 - Click next and wait
 
@@ -77,6 +77,7 @@ Since odeum player is subclass of `UIView`. adding player is same like adding si
 var odeumPlayer = OdeumPlayerView()
 view.addSubview(odeumPlayer)
 ```
+
 Is up to you how you want it to be framed, using `NSLayoutConstraints` or by manually framing it.
 
 You could also add it using storyboard or XIB. Just use `UIView` and set its `CustomClass` to be `OdeumPlayerView`.
@@ -92,6 +93,7 @@ odeumPlayer.play(url: myURL)
 ```
 
 there are methods to manipulate video playing in odeum:
+
 - `func set(url: URL)` to set url but not automatically play the video
 - `func play()` to play the video if video is ready to play
 - `func play(url: URL)` to set url and automatically play it if video is ready
