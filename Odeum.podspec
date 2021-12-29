@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Odeum'
-  s.version          = '1.2.5'
+  s.version          = '1.2.6'
   s.summary          = 'Odeum is a simple iOS Video player library with basic control'
 
 # This description is used to generate tags and improve search results.
