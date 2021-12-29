@@ -25,7 +25,7 @@ class ViewController: UIViewController {
             odeumPlayer.heightAnchor.constraint(equalTo: odeumPlayer.widthAnchor, multiplier: 9/16)
         ])
         odeumPlayer.delegate = self
-        let url = URL(string: "https://www.radiantmediaplayer.com/media/big-buck-bunny-360p.mp4")!
+        let url = URL(string: "https://www.rmp-streaming.com/media/big-buck-bunny-360p.mp4")!
         odeumPlayer.play(url: url)
     }
 
