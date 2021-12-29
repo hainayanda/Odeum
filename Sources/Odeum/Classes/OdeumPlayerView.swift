@@ -160,11 +160,6 @@ public class OdeumPlayerView: UIView {
     // MARK: View Arrangement and Animating
     
     func buildView() {
-        placeholderView.translatesAutoresizingMaskIntoConstraints = false
-        videoViewHolder.translatesAutoresizingMaskIntoConstraints = false
-        playerControl.translatesAutoresizingMaskIntoConstraints = false
-        progressBar.translatesAutoresizingMaskIntoConstraints = false
-        spinner.translatesAutoresizingMaskIntoConstraints = false
         makeControlTransparent()
         insertSubviewsInPlace()
         activatePlaceholderViewConstraints()
@@ -189,6 +184,7 @@ public class OdeumPlayerView: UIView {
     }
     
     func activatePlaceholderViewConstraints() {
+        placeholderView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             placeholderView.topAnchor.constraint(equalTo: topAnchor),
             placeholderView.leftAnchor.constraint(equalTo: leftAnchor),
@@ -198,6 +194,7 @@ public class OdeumPlayerView: UIView {
     }
     
     func activateVideoViewHolderConstraints() {
+        videoViewHolder.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             videoViewHolder.topAnchor.constraint(equalTo: topAnchor),
             videoViewHolder.leftAnchor.constraint(equalTo: leftAnchor),
@@ -207,6 +204,7 @@ public class OdeumPlayerView: UIView {
     }
     
     func activatePlayerControlConstraints() {
+        playerControl.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             playerControl.centerYAnchor.constraint(equalTo: centerYAnchor),
             playerControl.centerXAnchor.constraint(equalTo: centerXAnchor),
@@ -221,6 +219,7 @@ public class OdeumPlayerView: UIView {
     }
     
     func activateProgressBarConstraints() {
+        progressBar.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             progressBar.leftAnchor.constraint(equalTo: leftAnchor, constant: 8),
             progressBar.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
@@ -229,6 +228,7 @@ public class OdeumPlayerView: UIView {
     }
     
     func activateSpinnerConstraints() {
+        spinner.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             spinner.centerYAnchor.constraint(equalTo: centerYAnchor),
             spinner.centerXAnchor.constraint(equalTo: centerXAnchor),

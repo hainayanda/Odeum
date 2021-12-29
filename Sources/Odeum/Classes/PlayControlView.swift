@@ -11,7 +11,7 @@ import UIKit
 
 // MARK: Delegate
 
-public protocol PlayControlViewDelegate: class {
+public protocol PlayControlViewDelegate: AnyObject {
     func playControl(_ view: PlayControlView, audioDidChangeStateTo state: AudioState)
     func playControl(_ view: PlayControlView, playDidChangeStateTo state: PlayState)
     func playControl(_ view: PlayControlView, fullScreenDidChangeStateTo state: FullScreenState)
@@ -118,6 +118,11 @@ public class PlayControlView: UIView {
     }
     
     func buildView() {
+        setupBlurEffectView()
+        setupButtonStack()
+    }
+    
+    func setupBlurEffectView() {
         blurEffectView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(blurEffectView)
         NSLayoutConstraint.activate([
@@ -126,6 +131,9 @@ public class PlayControlView: UIView {
             blurEffectView.rightAnchor.constraint(equalTo: rightAnchor),
             blurEffectView.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
+    }
+    
+    func setupButtonStack() {
         buttonStack.translatesAutoresizingMaskIntoConstraints = false
         addSubview(buttonStack)
         NSLayoutConstraint.activate([

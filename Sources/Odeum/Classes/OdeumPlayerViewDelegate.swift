@@ -9,7 +9,7 @@ import Foundation
 #if canImport(UIKit)
 import UIKit
 
-public protocol OdeumPlayerViewDelegate: class {
+public protocol OdeumPlayerViewDelegate: AnyObject {
     func odeumDidPlayVideo(_ player: OdeumPlayerView)
     func odeumDidPauseVideo(_ player: OdeumPlayerView)
     func odeumViewControllerToPresentFullScreen(_ player: OdeumPlayerView) -> UIViewController
