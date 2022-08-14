@@ -109,7 +109,7 @@ All those functions will run automatically on the player control hover buttons
 
 ### Delegate
 
-You could observe event in the OdeumPlayerView by give them delegate:
+You could observe event and control tap behavior in the OdeumPlayerView by give them delegate:
 
 ```swift
 public protocol OdeumPlayerViewDelegate: class {
@@ -125,6 +125,8 @@ public protocol OdeumPlayerViewDelegate: class {
     func odeumDidBuffering(_ player: OdeumPlayerView)
     func odeumDidFinishedBuffering(_ player: OdeumPlayerView)
     func odeum(_ player: OdeumPlayerView, progressingBy percent: Double)
+    func odeum(_ player: OdeumPlayerView, shouldShowOnTapWhen appearance: OdeumPlayerView.ControlAppearanceState) -> Bool
+    func odeum(_ player: OdeumPlayerView, shouLdHideOnTapWhen appearance: OdeumPlayerView.ControlAppearanceState) -> Bool
 }
 ```
 

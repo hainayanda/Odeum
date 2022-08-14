@@ -90,6 +90,7 @@ public class OdeumPlayerView: UIView {
     public var videoItem: AVPlayerItem? {
         player.currentItem
     }
+    public internal(set) var controlAppearance: ControlAppearanceState = .hidden
     
     // MARK: Delegate
     
@@ -102,8 +103,8 @@ public class OdeumPlayerView: UIView {
         player.addPeriodicTimeObserver(
             forInterval: CMTime(seconds: 0.5, preferredTimescale: 1000),
             queue: .main) { [weak self] time in
-            self?.timeTracked(time)
-        }
+                self?.timeTracked(time)
+            }
         player.actionAtItemEnd = .pause
         player.addObserver(self, forKeyPath: "timeControlStatus", options: [.old, .new], context: nil)
         return player
@@ -268,30 +269,42 @@ public class OdeumPlayerView: UIView {
     }
     
     func showControl() {
+        controlAppearance = .goingToShow
         UIView.animate(
             withDuration: 0.45,
-            delay: 0,
-            options: .curveEaseInOut,
-            animations: {
-                self.progressBar.alpha = 1
-                self.playerControl.alpha = 1
-            },
-            completion: nil
-        )
+            delay: .zero,
+            options: .curveEaseInOut) { [weak progressBar, weak playerControl] in
+                progressBar?.alpha = 1
+                playerControl?.alpha = 1
+            } completion: { [weak self] complete in
+                guard complete else { return }
+                self?.controlAppearance = .shown
+            }
     }
     
     func hideControl() {
+        controlAppearance = .goingToHide
         UIView.animate(
             withDuration: 0.45,
-            delay: 0,
-            options: .curveEaseInOut,
-            animations: {
-                self.progressBar.alpha = 0
-                self.playerControl.alpha = 0
-            },
-            completion: nil
-        )
+            delay: .zero,
+            options: .curveEaseInOut) { [weak progressBar, weak playerControl] in
+                progressBar?.alpha = .zero
+                playerControl?.alpha = .zero
+            } completion: { [weak self] complete in
+                guard complete else { return }
+                self?.controlAppearance = .hidden
+            }
     }
+    
+}
 
+public extension OdeumPlayerView {
+    
+    enum ControlAppearanceState: Equatable {
+        case shown
+        case goingToShow
+        case goingToHide
+        case hidden
+    }
 }
 #endif

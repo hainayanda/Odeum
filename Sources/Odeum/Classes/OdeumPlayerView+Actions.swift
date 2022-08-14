@@ -26,13 +26,61 @@ extension OdeumPlayerView {
     }
     
     @objc func didTap(_ sender: Any?) {
-        showControl()
+        guard !isTappingControl(for: sender), !(sender is UISlider) else {
+            animateShowControlIfNeeded()
+            delayAutoHide()
+            return
+        }
+        guard let delegate = self.delegate else {
+            defaultTapAction()
+            return
+        }
+        if delegate.odeum(self, shouldShowOnTapWhen: controlAppearance) {
+            animateShowControlIfNeeded()
+            delayAutoHide()
+        } else if delegate.odeum(self, shouLdHideOnTapWhen: controlAppearance) {
+            hideControl()
+        }
+    }
+    
+    func isTappingControl(for sender: Any?) -> Bool {
+        switch controlAppearance {
+        case .hidden:
+            return false
+        default:
+            guard let gesture = sender as? UITapGestureRecognizer else {
+                return sender is PlayControlView
+            }
+            return playerControl.bounds.contains(gesture.location(in: playerControl))
+        }
+    }
+    
+    func defaultTapAction() {
+        switch controlAppearance {
+        case .shown, .goingToShow:
+            hideControl()
+        case .hidden, .goingToHide:
+            animateShowControlIfNeeded()
+            delayAutoHide()
+        }
+    }
+    
+    func delayAutoHide() {
         hideWorker?.cancel()
         let newWorker = DispatchWorkItem { [weak self] in
             self?.hideControl()
         }
         hideWorker = newWorker
         DispatchQueue.main.asyncAfter(deadline: .now() + videoControlShownTimeInterval, execute: newWorker)
+    }
+    
+    func animateShowControlIfNeeded() {
+        switch controlAppearance {
+        case .hidden, .goingToHide:
+            showControl()
+        default:
+            break
+        }
     }
     
     func timeTracked(_ time: CMTime) {

@@ -22,6 +22,8 @@ public protocol OdeumPlayerViewDelegate: AnyObject {
     func odeumDidBuffering(_ player: OdeumPlayerView)
     func odeumDidFinishedBuffering(_ player: OdeumPlayerView)
     func odeum(_ player: OdeumPlayerView, progressingBy percent: Double)
+    func odeum(_ player: OdeumPlayerView, shouldShowOnTapWhen appearance: OdeumPlayerView.ControlAppearanceState) -> Bool
+    func odeum(_ player: OdeumPlayerView, shouLdHideOnTapWhen appearance: OdeumPlayerView.ControlAppearanceState) -> Bool
 }
 
 public extension OdeumPlayerViewDelegate {
@@ -29,7 +31,7 @@ public extension OdeumPlayerViewDelegate {
     func odeumDidPauseVideo(_ player: OdeumPlayerView) { }
     func odeumViewControllerToPresentFullScreen(_ player: OdeumPlayerView) -> UIViewController {
         guard let viewController = player.viewController else {
-            fatalError()
+            fatalError("cannot find view controller that containing the player")
         }
         return viewController
     }
@@ -42,5 +44,21 @@ public extension OdeumPlayerViewDelegate {
     func odeumDidBuffering(_ player: OdeumPlayerView) { }
     func odeumDidFinishedBuffering(_ player: OdeumPlayerView) { }
     func odeum(_ player: OdeumPlayerView, progressingBy percent: Double) { }
+    func odeum(_ player: OdeumPlayerView, shouldShowOnTapWhen appearance: OdeumPlayerView.ControlAppearanceState) -> Bool {
+        switch appearance {
+        case .shown, .goingToShow:
+            return false
+        case .hidden, .goingToHide:
+            return true
+        }
+    }
+    func odeum(_ player: OdeumPlayerView, shouLdHideOnTapWhen appearance: OdeumPlayerView.ControlAppearanceState) -> Bool {
+        switch appearance {
+        case .shown, .goingToShow:
+            return true
+        case .hidden, .goingToHide:
+            return false
+        }
+    }
 }
 #endif
