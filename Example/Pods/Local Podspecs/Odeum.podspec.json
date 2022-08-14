@@ -1,6 +1,6 @@
 {
   "name": "Odeum",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "summary": "Odeum is a simple iOS Video player library with basic control",
   "description": "Odeum is a simple iOS Video player library with basic control written in Swift",
   "homepage": "https://github.com/hainayanda/Odeum",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/hainayanda/Odeum.git",
-    "tag": "1.2.5"
+    "tag": "1.2.6"
   },
   "platforms": {
     "ios": "10.0"
