@@ -31,7 +31,7 @@ public extension OdeumPlayerViewDelegate {
     func odeumDidPauseVideo(_ player: OdeumPlayerView) { }
     func odeumViewControllerToPresentFullScreen(_ player: OdeumPlayerView) -> UIViewController {
         guard let viewController = player.viewController else {
-            fatalError()
+            fatalError("cannot find view controller that containing the player")
         }
         return viewController
     }

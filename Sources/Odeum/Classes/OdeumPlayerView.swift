@@ -103,8 +103,8 @@ public class OdeumPlayerView: UIView {
         player.addPeriodicTimeObserver(
             forInterval: CMTime(seconds: 0.5, preferredTimescale: 1000),
             queue: .main) { [weak self] time in
-            self?.timeTracked(time)
-        }
+                self?.timeTracked(time)
+            }
         player.actionAtItemEnd = .pause
         player.addObserver(self, forKeyPath: "timeControlStatus", options: [.old, .new], context: nil)
         return player
