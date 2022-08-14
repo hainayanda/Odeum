@@ -293,5 +293,13 @@ public class OdeumPlayerView: UIView {
         )
     }
 
+public extension OdeumPlayerView {
+    
+    enum ControlAppearanceState: Equatable {
+        case shown
+        case goingToShow
+        case goingToHide
+        case hidden
+    }
 }
 #endif
