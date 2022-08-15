@@ -39,7 +39,8 @@ extension OdeumPlayerView {
             animateShowControlIfNeeded()
             delayAutoHide()
         } else if delegate.odeum(self, shouLdHideOnTapWhen: controlAppearance) {
-            hideControl()
+            animateHideControlIfNeeded()
+            disableAutoHide()
         }
     }
     
@@ -58,7 +59,8 @@ extension OdeumPlayerView {
     func defaultTapAction() {
         switch controlAppearance {
         case .shown, .goingToShow:
-            hideControl()
+            animateHideControlIfNeeded()
+            disableAutoHide()
         case .hidden, .goingToHide:
             animateShowControlIfNeeded()
             delayAutoHide()
@@ -66,18 +68,37 @@ extension OdeumPlayerView {
     }
     
     func delayAutoHide() {
+        disableAutoHide()
+        enableAutoHide(after: videoControlShownTimeInterval)
+    }
+    
+    func disableAutoHide() {
         hideWorker?.cancel()
+        hideWorker = nil
+    }
+    
+    func enableAutoHide(after timeInterval: TimeInterval) {
         let newWorker = DispatchWorkItem { [weak self] in
-            self?.hideControl()
+            self?.animateHideControlIfNeeded()
+            self?.hideWorker = nil
         }
         hideWorker = newWorker
-        DispatchQueue.main.asyncAfter(deadline: .now() + videoControlShownTimeInterval, execute: newWorker)
+        DispatchQueue.main.asyncAfter(deadline: .now() + timeInterval, execute: newWorker)
     }
     
     func animateShowControlIfNeeded() {
         switch controlAppearance {
         case .hidden, .goingToHide:
             showControl()
+        default:
+            break
+        }
+    }
+    
+    func animateHideControlIfNeeded() {
+        switch controlAppearance {
+        case .shown, .goingToShow:
+            hideControl()
         default:
             break
         }
