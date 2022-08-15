@@ -12,16 +12,16 @@ import AVFoundation
 import AVKit
 
 extension OdeumPlayerView {
+    
     @objc func slided(_ sender: Any?) {
         hideWorker?.cancel()
+        player.pause()
+        seek(to: progressBar.value)
     }
     
     @objc func didSlide(_ sender: Any?) {
-        guard let duration = player.currentItem?.duration.seconds else { return }
-        let time = duration * Double(progressBar.value)
-        let cmTime = CMTime(seconds: time, preferredTimescale: 1000)
-        player.seek(to: cmTime)
-        justSlided = true
+        seek(to: progressBar.value)
+        player.play()
         didTap(sender)
     }
     
@@ -39,7 +39,8 @@ extension OdeumPlayerView {
             animateShowControlIfNeeded()
             delayAutoHide()
         } else if delegate.odeum(self, shouLdHideOnTapWhen: controlAppearance) {
-            hideControl()
+            animateHideControlIfNeeded()
+            disableAutoHide()
         }
     }
     
@@ -58,7 +59,8 @@ extension OdeumPlayerView {
     func defaultTapAction() {
         switch controlAppearance {
         case .shown, .goingToShow:
-            hideControl()
+            animateHideControlIfNeeded()
+            disableAutoHide()
         case .hidden, .goingToHide:
             animateShowControlIfNeeded()
             delayAutoHide()
@@ -66,12 +68,22 @@ extension OdeumPlayerView {
     }
     
     func delayAutoHide() {
+        disableAutoHide()
+        enableAutoHide(after: videoControlShownTimeInterval)
+    }
+    
+    func disableAutoHide() {
         hideWorker?.cancel()
+        hideWorker = nil
+    }
+    
+    func enableAutoHide(after timeInterval: TimeInterval) {
         let newWorker = DispatchWorkItem { [weak self] in
-            self?.hideControl()
+            self?.animateHideControlIfNeeded()
+            self?.hideWorker = nil
         }
         hideWorker = newWorker
-        DispatchQueue.main.asyncAfter(deadline: .now() + videoControlShownTimeInterval, execute: newWorker)
+        DispatchQueue.main.asyncAfter(deadline: .now() + timeInterval, execute: newWorker)
     }
     
     func animateShowControlIfNeeded() {
@@ -83,11 +95,28 @@ extension OdeumPlayerView {
         }
     }
     
+    func animateHideControlIfNeeded() {
+        switch controlAppearance {
+        case .shown, .goingToShow:
+            hideControl()
+        default:
+            break
+        }
+    }
+    
+    func seek(to progress: Float) {
+        guard let duration = player.currentItem?.duration.seconds else { return }
+        let time = duration * Double(progressBar.value)
+        let cmTime = CMTime(seconds: time, preferredTimescale: 1000)
+        player.seek(to: cmTime)
+        manuallySeek = true
+    }
+    
     func timeTracked(_ time: CMTime) {
         guard !progressBar.isHighlighted,
               let duration = player.currentItem?.duration,
-                !justSlided else {
-            justSlided = false
+                !manuallySeek else {
+            manuallySeek = false
             return
         }
         let progress = min(max(time.seconds / duration.seconds, 0), 1)
