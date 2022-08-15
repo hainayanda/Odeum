@@ -131,7 +131,7 @@ public class OdeumPlayerView: UIView {
     var previousTimeStatus: AVPlayer.TimeControlStatus?
     var hideWorker: DispatchWorkItem?
     weak var fullScreenViewController: UIViewController?
-    var justSlided: Bool = false
+    var manuallySeek: Bool = false
     var videoControlShownTimeInterval: TimeInterval { .init(truncating: videoControlShownDuration) }
     
     // MARK: Initializer

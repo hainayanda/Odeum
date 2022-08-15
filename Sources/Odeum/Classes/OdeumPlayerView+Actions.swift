@@ -12,16 +12,16 @@ import AVFoundation
 import AVKit
 
 extension OdeumPlayerView {
+    
     @objc func slided(_ sender: Any?) {
         hideWorker?.cancel()
+        player.pause()
+        seek(to: progressBar.value)
     }
     
     @objc func didSlide(_ sender: Any?) {
-        guard let duration = player.currentItem?.duration.seconds else { return }
-        let time = duration * Double(progressBar.value)
-        let cmTime = CMTime(seconds: time, preferredTimescale: 1000)
-        player.seek(to: cmTime)
-        justSlided = true
+        seek(to: progressBar.value)
+        player.play()
         didTap(sender)
     }
     
@@ -104,11 +104,19 @@ extension OdeumPlayerView {
         }
     }
     
+    func seek(to progress: Float) {
+        guard let duration = player.currentItem?.duration.seconds else { return }
+        let time = duration * Double(progressBar.value)
+        let cmTime = CMTime(seconds: time, preferredTimescale: 1000)
+        player.seek(to: cmTime)
+        manuallySeek = true
+    }
+    
     func timeTracked(_ time: CMTime) {
         guard !progressBar.isHighlighted,
               let duration = player.currentItem?.duration,
-                !justSlided else {
-            justSlided = false
+                !manuallySeek else {
+            manuallySeek = false
             return
         }
         let progress = min(max(time.seconds / duration.seconds, 0), 1)
